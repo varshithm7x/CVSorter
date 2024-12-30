@@ -1,0 +1,19 @@
+
+    SENIOR SOFTWARE ENGINEER
+
+    PROFESSIONAL SUMMARY
+    Experienced Software Engineer with 8+ years in enterprise application development.
+    Expert in Java, C#, and SQL with strong background in system architecture.
+
+    SKILLS
+    - Programming: Java, C#, .NET
+    - Databases: SQL Server, Oracle, MongoDB
+    - Tools: Visual Studio, Eclipse, Git, JIRA
+    - Other: Agile/Scrum, CI/CD, Cloud Services (AWS)
+
+    EXPERIENCE
+    Senior Software Engineer | Tech Solutions Inc.
+    - Led development of enterprise applications using Java and .NET
+    - Designed and implemented database solutions using SQL Server
+    - Managed team of 5 developers in Agile environment
+    

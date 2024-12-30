@@ -1,0 +1,745 @@
+:root {
+    --primary-color: #0ea5e9;
+    --primary-dark: #0284c7;
+    --primary-light: #e0f2fe;
+    --gradient-start: #0ea5e9;
+    --gradient-end: #3b82f6;
+    --text-color: #0f172a;
+    --text-light: #64748b;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+h1 {
+    text-align: center;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 48px;
+    font-size: 3em;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+form {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.section-title {
+    color: var(--text-color);
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+/* Skills Section */
+.skill-search-container {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.skill-search-container input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: all 0.2s;
+    background-color: var(--bg-color);
+}
+
+.skill-search-container input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.skill-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+    margin-top: 8px;
+    padding: 0;
+}
+
+.skill-categories {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: var(--border-color);
+    width: 100%;
+}
+
+.skill-category {
+    background: var(--card-bg);
+    padding: 16px;
+    min-height: 200px;
+    border: 1px solid var(--border-color);
+    margin: -1px 0 0 -1px;
+}
+
+.skill-category:nth-child(4n) {
+    border-right: none;
+}
+
+.skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.skill-category h4 {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.skill-checkbox {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-light);
+    transition: all 0.2s;
+}
+
+.skill-checkbox input {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.skill-checkbox span {
+    flex: 1;
+    margin-right: 8px;
+}
+
+.skill-checkbox:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.selected-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.selected-skill {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 6px 16px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--primary-color);
+    transition: all 0.2s;
+}
+
+.selected-skill:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Requirements Section */
+.requirements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin: 40px 0;
+    padding: 32px;
+    background: var(--bg-color);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--border-color);
+}
+
+.requirements label {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.requirements input,
+.requirements select {
+    padding: 14px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    background-color: var(--card-bg);
+    transition: all 0.2s;
+}
+
+/* File Upload Section */
+.file-upload {
+    margin: 40px 0;
+}
+
+.file-upload label {
+    display: block;
+    padding: 40px;
+    background: linear-gradient(135deg, var(--primary-light), #f0f9ff);
+    border: 3px dashed var(--primary-color);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.file-upload label:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.file-item {
+    background: var(--bg-color);
+    padding: 16px 20px;
+    margin: 8px 0;
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.2);
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 8px -1px rgba(14, 165, 233, 0.3);
+}
+
+/* Results Section */
+.result-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    background: #f9fafb;
+}
+
+.result-summary {
+    flex: 1;
+}
+
+.result-summary h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.result-summary p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.expand-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 4px;
+}
+
+.expand-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.result-details {
+    padding: 16px;
+    border-top: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+/* Collapsed state */
+.result-item.collapsed .result-details {
+    display: none;
+}
+
+.result-item:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Update existing skill tags styles */
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skill-tag {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+/* Add loading animation */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+}
+
+/* Navigation */
+.navbar {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.logo i {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+}
+
+.nav-links a i {
+    font-size: 1.1rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.login-btn {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+}
+
+.login-btn:hover {
+    background: var(--bg-color);
+}
+
+.signup-btn {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: var(--radius-md);
+    transition: all 0.3s;
+}
+
+.signup-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.3);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 4px;
+}
+
+/* Adjust main container for fixed navbar */
+.container {
+    margin-top: 110px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links, .nav-auth {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    /* Mobile menu when active */
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        gap: 16px;
+    }
+
+    .nav-auth.active {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        background: white;
+        border-top: 1px solid var(--border-color);
+    }
+}
+
+/* Authentication Pages */
+.auth-container {
+    max-width: 400px;
+    margin: 120px auto;
+    padding: 0 20px;
+}
+
+.auth-card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2em;
+}
+
+.auth-form .form-group {
+    margin-bottom: 20px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.auth-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.3);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 24px;
+    color: var(--text-light);
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.alert-error {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+}
+
+.experience-section {
+    margin: 20px 0;
+}
+
+.experience-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.experience-input input {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.experience-input label {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Add these styles for skill tags in results */
+.skill-matches {
+    margin-top: 16px;
+}
+
+.skill-matches h4 {
+    margin-bottom: 8px;
+    color: var(--text-light);
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.skill-tag.matched {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+.skill-tag.missing {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* Add these styles for the loading overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--primary-light);
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 16px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.skill-search-container input::placeholder {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.selected-skill {
+    /* Existing styles... */
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-color);
+}
+
+/* Add different style for custom skills */
+.selected-skill.custom {
+    background-color: #e5e7eb;
+    border: 1px dashed #4b5563;
+}
+
+.custom-skill-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.custom-skill-container input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.custom-skill-container button {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.custom-skill-container button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Style for custom skills */
+.selected-skill.custom {
+    background-color: #e5e7eb;
+    border: 1px dashed #4b5563;
+} 

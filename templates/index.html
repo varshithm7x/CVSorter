@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>CV Screening System</h1>
+    
+    <form id="screeningForm">
+        <div class="skills-section">
+            <h3>Required Skills</h3>
+            <!-- Predefined skills search -->
+            <div class="skill-search-container">
+                <input type="text" 
+                       id="skillSearch" 
+                       placeholder="Search from predefined skills..."
+                       autocomplete="off">
+                <div id="skillDropdown" class="skill-dropdown">
+                    <!-- Skills will be populated here -->
+                </div>
+            </div>
+            
+            <!-- New custom skill input -->
+            <div class="custom-skill-container">
+                <input type="text" 
+                       id="customSkillInput" 
+                       placeholder="Add a custom skill..."
+                       autocomplete="off">
+                <button type="button" id="addCustomSkillBtn">Add Skill</button>
+            </div>
+            
+            <div id="selectedSkills" class="selected-skills">
+                <!-- Selected skills will appear here -->
+            </div>
+        </div>
+
+        <div class="experience-section">
+            <h3>Required Experience</h3>
+            <div class="experience-input">
+                <input type="number" 
+                       id="experience" 
+                       name="experience" 
+                       min="0" 
+                       max="50" 
+                       value="0" 
+                       class="experience-input">
+                <label for="experience">years</label>
+            </div>
+        </div>
+
+        <div class="file-upload-section">
+            <h3>Upload CVs</h3>
+            <input type="file" 
+                   id="cvFiles" 
+                   name="resumes" 
+                   multiple 
+                   accept=".pdf,.doc,.docx,.txt">
+            <div id="fileList" class="file-list"></div>
+        </div>
+
+        <button type="submit">Screen CVs</button>
+    </form>
+
+    <div id="results" class="hidden">
+        <h2>Screening Results</h2>
+        <div id="resultsList"></div>
+    </div>
+</div>
+
+<div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+    <div class="loading-text">Screening CVs...</div>
+</div>
+{% endblock %} 

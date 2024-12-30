@@ -1,0 +1,29 @@
+# Virtual Environment
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Environment Variables
+.env
+
+# Uploads and Temporary files
+uploads/
+temp_*/
+
+# Database
+*.db
+*.sqlite3
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db 

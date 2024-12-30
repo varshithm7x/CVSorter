@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}CV Screener{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>CV Screener</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}" class="{{ 'active' if request.endpoint == 'home' }}">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="#pricing">
+                    <i class="fas fa-tag"></i>
+                    Pricing
+                </a>
+                <a href="#contact">
+                    <i class="fas fa-envelope"></i>
+                    Contact
+                </a>
+                <a href="#about">
+                    <i class="fas fa-info-circle"></i>
+                    About
+                </a>
+            </div>
+
+            <div class="nav-auth">
+                {% if current_user.is_authenticated %}
+                    <span class="user-name">{{ current_user.name }}</span>
+                    <a href="{{ url_for('logout') }}" class="login-btn">Log out</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="login-btn">Log in</a>
+                    <a href="{{ url_for('signup') }}" class="signup-btn">Sign up</a>
+                {% endif %}
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html> 
