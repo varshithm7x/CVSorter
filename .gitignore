@@ -9,6 +9,7 @@ __pycache__/
 
 # Environment Variables
 .env
+.env.local
 
 # Uploads and Temporary files
 uploads/
@@ -21,13 +22,14 @@ temp_*/
 # IDE specific files
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# OS specific files
-.DS_Store
-Thumbs.db 
 
 # Poppler files
 poppler*/
 poppler-*/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Render specific
+/tmp/
