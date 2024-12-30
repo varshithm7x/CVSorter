@@ -7,12 +7,14 @@ import json
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from sqlalchemy_utils import database_exists, create_database
 
 load_dotenv()  # Load environment variables
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URL'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
 
 # Make sure upload folder exists
@@ -30,9 +32,16 @@ screener = CVScreener()
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# Initialize database
+def init_database():
+    with app.app_context():
+        if not database_exists(app.config['SQLALCHEMY_DATABASE_URI']):
+            create_database(app.config['SQLALCHEMY_DATABASE_URI'])
+        db.create_all()
+        print("Database initialized!")
+
 # Create database tables
-with app.app_context():
-    db.create_all()
+init_database()
 
 @app.route('/')
 def home():
@@ -100,15 +109,14 @@ def screen_cvs():
     try:
         # Get selected skills
         skills = json.loads(request.form.get('skills', '[]'))
+        print(f"Received skills: {skills}")  # Debug print
         
-        # Get experience requirement from user input
+        # Get experience requirement
         experience = request.form.get('experience', '0')
         try:
-            experience = int(experience.replace('+', ''))  # Remove '+' if present
+            experience = int(experience.replace('+', ''))
         except ValueError:
             experience = 0
-            
-        education = request.form.get('education', '4')
         
         # Format job requirements
         job_requirements = f"""
@@ -116,36 +124,38 @@ def screen_cvs():
         {chr(10).join('- ' + skill for skill in skills)}
         
         - {experience} years of experience
-        - Education Level: {education}
         """
         
         # Process uploaded files
         files = request.files.getlist('resumes')
-        cvs = []
+        print(f"Received {len(files)} files")  # Debug print
         
+        cvs = []
         for file in files:
-            if file.filename:
-                filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            if file and file.filename:
+                # Secure the filename
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(filepath)
                 cvs.append({
-                    'candidate_name': os.path.splitext(file.filename)[0],
+                    'candidate_name': os.path.splitext(filename)[0],
                     'file_path': filepath
                 })
         
         # Screen CVs
         results = screener.screen_cvs(cvs, job_requirements)
+        print(f"Screening results: {len(results)}")  # Debug print
         
         # Format results for JSON response
-        formatted_results = [
-            {
+        formatted_results = []
+        for idx, result in enumerate(results):
+            formatted_results.append({
                 'rank': idx + 1,
-                'name': name,
-                'score': f"{score:.2f}",
-                'file': filepath,
-                'matched_skills': matched_skills
-            }
-            for idx, (name, score, filepath, matched_skills) in enumerate(results)
-        ]
+                'name': result['candidate_name'],
+                'score': f"{result['score']:.2f}",
+                'file': result['file_path'],
+                'matched_skills': result['matched_skills']
+            })
         
         return jsonify({
             'status': 'success',
@@ -153,6 +163,7 @@ def screen_cvs():
         })
         
     except Exception as e:
+        print(f"Error in screen_cvs route: {str(e)}")  # Debug print
         return jsonify({
             'status': 'error',
             'message': str(e)

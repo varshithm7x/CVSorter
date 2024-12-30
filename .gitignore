@@ -27,3 +27,6 @@ temp_*/
 # OS specific files
 .DS_Store
 Thumbs.db 
+
+
+poppler-24.08.0/
