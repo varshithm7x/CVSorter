@@ -15,10 +15,10 @@ class CVScreener:
         # Use system-installed Tesseract and Poppler
         if platform.system() == 'Windows':
             pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-            # Update path to match your actual Poppler location
             self.poppler_path = r'F:\CVSorter\poppler-24.08.0\Library\bin'
         else:
             # On Linux/deployment, use system installed versions
+            pytesseract.pytesseract.tesseract_cmd = 'tesseract'
             self.poppler_path = None  # System default
         
         # Initialize custom_skills

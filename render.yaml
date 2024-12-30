@@ -12,6 +12,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.8
       - key: SECRET_KEY
-        value: your_secure_secret_key
+        fromVariable: SECRET_KEY
       - key: DATABASE_URL
-        value: your_database_url 
+        fromVariable: DATABASE_URL
+    plan: free 
