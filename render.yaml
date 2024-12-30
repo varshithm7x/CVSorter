@@ -3,17 +3,15 @@ services:
     name: cv-screening-system
     env: python
     buildCommand: |
-      # Install system dependencies
-      apt-get update && apt-get install -y tesseract-ocr poppler-utils
+      pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
       python -m spacy download en_core_web_sm
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.12
+        value: 3.11.0
       - key: SECRET_KEY
         fromVariable: SECRET_KEY
       - key: DATABASE_URL
         fromVariable: DATABASE_URL
-    plan: free
-    runtime: python3 
+    plan: free 
