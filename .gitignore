@@ -28,5 +28,6 @@ temp_*/
 .DS_Store
 Thumbs.db 
 
-
-poppler-24.08.0/
+# Poppler files
+poppler*/
+poppler-*/

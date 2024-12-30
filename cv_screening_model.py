@@ -50,52 +50,32 @@ class CVScreener:
 
     def extract_text_from_pdf(self, file_path):
         try:
-            print(f"\n=== PDF Extraction Process ===")
-            print(f"File: {file_path}")
-            print(f"Poppler path: {self.poppler_path}")
-            
             # Check if file exists
             if not os.path.exists(file_path):
-                print(f"Error: File not found at {file_path}")
                 return ""
             
-            # Check file size
-            file_size = os.path.getsize(file_path)
-            print(f"File size: {file_size} bytes")
-            
             # Convert PDF to images
-            print("Converting PDF to images...")
             if platform.system() == 'Windows':
                 if not os.path.exists(self.poppler_path):
-                    print(f"Error: Poppler bin not found at: {self.poppler_path}")
                     return ""
-                
-                print("Using Windows configuration...")
                 images = convert_from_path(
                     file_path,
                     poppler_path=self.poppler_path,
                     dpi=300
                 )
             else:
-                print("Using Linux configuration...")
                 images = convert_from_path(file_path, dpi=300)
-            
-            print(f"Successfully converted PDF to {len(images)} images")
             
             # Process each page
             text = ""
             for i, image in enumerate(images):
                 try:
-                    print(f"\nProcessing page {i+1}/{len(images)}")
-                    
                     # Preprocess image
                     img = image.convert('L')
-                    print("Image converted to grayscale")
                     
                     # Save image temporarily
                     temp_image_path = f'temp_page_{i}.png'
                     img.save(temp_image_path, dpi=(300, 300))
-                    print(f"Temporary image saved: {temp_image_path}")
                     
                     # Try OCR configurations
                     configs = [
@@ -106,7 +86,6 @@ class CVScreener:
                     
                     page_text = ""
                     for config in configs:
-                        print(f"Trying OCR with config: {config}")
                         current_text = pytesseract.image_to_string(
                             Image.open(temp_image_path),
                             lang='eng',
@@ -115,24 +94,18 @@ class CVScreener:
                         
                         if len(current_text) > len(page_text):
                             page_text = current_text
-                            print(f"Found better text result ({len(current_text)} chars)")
                     
                     text += page_text + "\n"
-                    print(f"Added page text ({len(page_text)} chars)")
                     
                     # Clean up
                     os.remove(temp_image_path)
-                    print("Cleaned up temporary file")
                     
                 except Exception as e:
-                    print(f"Error on page {i+1}: {str(e)}")
                     continue
             
-            print(f"\nTotal extracted text: {len(text)} characters")
             return text.strip()
             
         except Exception as e:
-            print(f"Error in PDF extraction: {str(e)}")
             return ""
 
     def extract_skills(self, text):
@@ -356,13 +329,8 @@ class CVScreener:
 
     def screen_cvs(self, cvs, job_requirements):
         results = []
-        
-        # Extract required skills and experience from job requirements
         required_skills = []
         min_experience = 0
-        
-        print("\n=== Starting CV Screening Process ===")
-        print(f"Number of CVs to process: {len(cvs)}")
         
         for line in job_requirements.split('\n'):
             line = line.strip()
@@ -370,32 +338,17 @@ class CVScreener:
                 if 'years of experience' in line.lower():
                     try:
                         min_experience = int(line.split()[1])
-                        print(f"Required experience: {min_experience} years")
                     except:
                         pass
                 elif not any(keyword in line.lower() for keyword in ['experience', 'education']):
                     required_skills.append(line[2:].strip())
         
-        print(f"Required skills: {required_skills}")
-        
         # Process each CV
-        for i, cv in enumerate(cvs, 1):
-            print(f"\nProcessing CV {i}/{len(cvs)}: {cv['file_path']}")
+        for cv in cvs:
             try:
-                # Extract text from CV
-                print(f"Extracting text from {cv['file_path']}...")
                 cv_text = self.extract_text(cv['file_path'])
-                
                 if cv_text:
-                    print(f"Successfully extracted text ({len(cv_text)} characters)")
-                    print("First 200 characters:", cv_text[:200])
-                    
-                    # Calculate match score
-                    print("\nCalculating match score...")
                     score, matched_skills = self.calculate_match_score(cv_text, required_skills, min_experience)
-                    print(f"Score: {score:.2f}")
-                    print(f"Matched skills: {matched_skills}")
-                    
                     result = {
                         'candidate_name': cv['candidate_name'],
                         'score': score,
@@ -403,16 +356,10 @@ class CVScreener:
                         'matched_skills': matched_skills
                     }
                     results.append(result)
-                    print(f"Added to results. Current results count: {len(results)}")
-                else:
-                    print(f"Warning: No text extracted from {cv['file_path']}")
             except Exception as e:
-                print(f"Error processing CV {cv['file_path']}: {str(e)}")
                 continue
         
         # Sort by score
         results.sort(key=lambda x: x['score'], reverse=True)
-        print(f"\nFinal results count: {len(results)}")
-        print("=== CV Screening Complete ===\n")
         
         return results 
