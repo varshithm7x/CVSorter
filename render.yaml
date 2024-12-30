@@ -10,9 +10,10 @@ services:
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.8
+        value: 3.9.12
       - key: SECRET_KEY
         fromVariable: SECRET_KEY
       - key: DATABASE_URL
         fromVariable: DATABASE_URL
-    plan: free 
+    plan: free
+    runtime: python3 
