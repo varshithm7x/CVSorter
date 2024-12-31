@@ -1,14 +1,9 @@
 services:
   - type: web
     name: cv-screening-system
-    env: python
-    buildCommand: |
-      apt-get update && apt-get install -y tesseract-ocr poppler-utils
-      pip install -r requirements.txt && spacy download en_core_web_sm
-    startCommand: gunicorn app:app
+    env: docker
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
       - key: SECRET_KEY
         fromVariable: SECRET_KEY
       - key: DATABASE_URL
